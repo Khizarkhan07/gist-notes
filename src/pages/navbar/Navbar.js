@@ -10,7 +10,7 @@ import {Link} from "react-router-dom";
 import styled from "styled-components";
 
 const StyledDiv = styled.div`
-    margin-left: 30%;
+    
     font-size: 25px;
     font-weight: 500;
     display: grid;
@@ -35,49 +35,64 @@ export const Navbar = () => {
 
 
         <nav className="navbar justify-content-between" style= {{'background': '#5acba1'}}>
-            <div className="navbar-brand">
+            <div className={"container"}>
+                <div className="navbar-brand">
 
-                <StyledDiv>
-                    <div>
-                        <Link to={"/"}>
-                            <img src={logo} width="30" height="30"  alt=""/>
-                        </Link>
-                    </div>
-                    <div>M</div>
-                    <div>U</div>
-                    <div>M</div>
-                    <div>B</div>
-                    <div>A</div>
-                </StyledDiv>
+                    <StyledDiv>
+                        <div>
+                            <Link to={"/"}>
+                                <img src={logo} width="30" height="30"  alt=""/>
+                            </Link>
+                        </div>
+                        <div>M</div>
+                        <div>U</div>
+                        <div>M</div>
+                        <div>B</div>
+                        <div>A</div>
+                    </StyledDiv>
 
+                </div>
+
+
+                <form  className="form-inline" id="navbarNav">
+                    <InputField type={"Search"} placeholder={"Search"} handleChange = {(e) => setSearch(e.target.value)}/>
+                    <ButtonWIthIcon icon = {"fa fa-search"} handleClick = {(e)=> {
+                        e.preventDefault();
+                        dispatch({type: 'SEARCH_GISTS', payload: {search: search}})
+                    }} />
+
+                    {
+                        !state.name && (
+                            <ButtonWIthIcon text={"Login"} color={"blue"} background={"white"}/>
+                        )
+                    }
+
+                    {
+                        state.name && (
+                            <div className="dropdown">
+                                <Link
+                                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false" to={`/user/${state.id}`}>
+                                    <ProfileLogo src={profile}  />
+                                </Link>
+
+                                <div className="dropdown-menu dropdown-menu-right mt-2" aria-labelledby="dropdownMenuButton">
+                                    <a className="dropdown-item" href="/user/1">Profile</a>
+                                </div>
+
+
+
+                            </div>
+
+
+
+
+                        )
+                    }
+
+                </form>
             </div>
 
-
-            <form  className="form-inline" id="navbarNav">
-                <InputField type={"Search"} placeholder={"Search"} handleChange = {(e) => setSearch(e.target.value)}/>
-                <ButtonWIthIcon icon = {"fa fa-search"} handleClick = {(e)=> {
-                    e.preventDefault();
-                    dispatch({type: 'SEARCH_GISTS', payload: {search: search}})
-                }} />
-
-                {
-                    !state.name && (
-                        <ButtonWIthIcon text={"Login"} color={"blue"} background={"white"}/>
-                    )
-                }
-
-                {
-                    state.name && (
-
-                        <Link to={`/user/${state.id}`}>
-                            <ProfileLogo src={profile}  />
-                        </Link>
-
-
-                    )
-                }
-
-            </form>
 
 
 
