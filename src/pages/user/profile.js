@@ -6,6 +6,7 @@ import ButtonWIthIcon from "../../components/buttonWIthIcon";
 import GistCard from "../../components/gistCard";
 import styled from "styled-components";
 import ProfileLogo from "../../components/profileLogo";
+import {isAuthenticated} from "../../utils/sessionStorage";
 
 const StyledProfileDiv = styled.div`
    margin-top: 50px;
@@ -47,17 +48,19 @@ function Profile({obj}) {
     const {state} = useContext(GistsStore)
     const userState = useContext(UsersStore)
     const userId= obj.match.params.userId
-    const userGists = state.gists.filter(gist => gist.userId === userId);
-
+    const userGists = state.myData.filter(gist => gist.userId === userId);
+    const user = isAuthenticated();
 
     return (
         <div className={"container mt-5"}>
             <StyledProfileDiv>
 
                 <StyledAvatarDiv>
-                    <ProfileLogo src={profile} profile={true}/>
-                    <h6 className={"mt-4 mb-4"}>{userState.state.name}</h6>
-                    <ButtonWIthIcon color={'blue'} text={"View Github Profile"}/>
+                    <ProfileLogo src={user.avatar_url} profile={true}/>
+                    <h6 className={"mt-4 mb-4"}>{user.login}</h6>
+                    <ButtonWIthIcon color={'blue'} text={"View Github Profile"} handleClick = {()=> {
+                        window.location.href= user.html_url;
+                    }}/>
                 </StyledAvatarDiv>
 
                 <StyledVrDiv>
@@ -65,8 +68,13 @@ function Profile({obj}) {
                 </StyledVrDiv>
 
                 <div className={"gists mb-5"}>
-                    {userGists.map(gist=>
-                        <GistCard singleGist={true} gist={gist}/>
+                    {userGists[0] &&(
+                        userGists.map(gist=>
+                                <GistCard singleGist={true} gist={gist}/>
+                            )
+                    )}
+                    {!userGists[0] &&(
+                        <h6>No gist found!</h6>
                     )}
 
 

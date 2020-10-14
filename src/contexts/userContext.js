@@ -1,30 +1,46 @@
 import React, {createContext, useReducer} from 'react';
+import {isAuthenticated} from "../utils/sessionStorage";
+
 
 const initialState = {
-    name: "Khizar", id:"1"
+
 }
+
+
 const UsersStore = createContext(initialState);
 const { Provider } = UsersStore;
 
-
+const LOGIN = 'Login';
+const LOGOUT = 'Logout';
 const UserProvider = ( { children } ) => {
-    const [state, dispatch] = useReducer((state, action) => {
-        console.log(state)
-        switch(action.type) {
+    const [state, userDispatch] = useReducer((state, action) => {
 
-            case 'Login':
+        switch(action.type) {
+            case 'Current_User': {
+                console.log("current",isAuthenticated());
+                state.name= isAuthenticated().login;
+                state.id= isAuthenticated().id;
+                state.avatar= isAuthenticated().avatar_url;
+                state.avatar= isAuthenticated().avatar_url;
+                state.url= isAuthenticated().html_url;
                 return state;
-            case 'Logout' :
+            }
+            case LOGIN:
+                console.log(action.payload)
+                state = action.payload
+                return state;
+
+            case LOGOUT :
                 state = {};
                 return state
 
 
             default:
-                throw new Error();
+                return state;
         };
     }, initialState);
 
-    return <Provider value={{ state, dispatch }}>{children}</Provider>;
+    return <Provider value={{ state, userDispatch }}>{children}</Provider>;
 };
 
 export { UsersStore, UserProvider }

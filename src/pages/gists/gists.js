@@ -1,18 +1,27 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import {GistsStore} from "../../contexts/gistContext";
 import GistsTable from "./gistsTable"
 import './gists.css'
 import GistCard from "../../components/gistCard";
 import ButtonWIthIcon from "../../components/buttonWIthIcon";
-
+import {getGists} from "../../utils/clientApi";
 
 
 function Gists() {
     const [layout, setLayout] = useState('list')
 
-    const {state} = useContext(GistsStore);
+    const {state, dispatch} = useContext(GistsStore);
 
+    useEffect(() => {
+        getGists().then(data=>{
+            if(data){
+                dispatch({type: "FETCH_GISTS", payload: data})
+            }
+        })
+
+    }, [dispatch])
     return (
+
         <div className={"container"}>
             <div className={"layout-buttons"}>
                 <button className="btn btn-white mr-1"
@@ -38,7 +47,7 @@ function Gists() {
                 {
                     layout === 'list' && (
                         <div className={"gist gist-list"}>
-                            <GistsTable gists ={state.gists}/>
+                            <GistsTable gists ={state}/>
                         </div>
                     )
                 }
@@ -47,7 +56,7 @@ function Gists() {
                     layout === 'grid' && (
                         <div className={"gist"}>
                             <div className={"row"}>
-                                {state.gists.map(gist => (
+                                {state.myData.map(gist => (
                                     <GistCard key={gist.id} gist = {gist}/>
                                 ))}
                             </div>

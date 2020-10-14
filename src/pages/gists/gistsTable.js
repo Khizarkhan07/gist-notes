@@ -1,11 +1,11 @@
 import React from 'react';
 import {Link} from "react-router-dom";
-import logo from '../../assets/images/logo.png'
 import ButtonWIthIcon from "../../components/buttonWIthIcon";
 import ProfileLogo from "../../components/profileLogo";
+import {TimeAgo} from "../../components/timeAgo";
 
-
-function GistsTable({gists}) {
+function GistsTable(props) {
+    console.log(props.gists.myData)
     const thead = {
         background: '#def5ec'
     }
@@ -28,24 +28,30 @@ function GistsTable({gists}) {
 
 
                 {
-                    gists.map( gist => (
+                    props.gists.myData.map( gist => (
                         <tr key={gist.id}>
                             <th scope="row"><input type={"checkbox"}/></th>
                             <th>
                                 <Link to={`/user/${gist.userId}`}>
-                                    <ProfileLogo src={logo}/>
+                                    <ProfileLogo src={gist.owner.avatar_url}/>
 
                                 </Link>
 
                             </th>
-                            <td>{gist.name}</td>
-                            <td>{new Date(gist.date).toDateString()}</td>
-                            <td>{new Date(gist.time).toDateString()}</td>
-                            <td>{gist.keyword}</td>
-                            <td>  <Link to={`/gist/${gist.id}`}>{gist.noteBookName}</Link></td>
+                            <td>{gist.owner.login}</td>
+                            <td>{new Date(gist.created_at).toDateString()}</td>
+                            <td>{new Date(gist.created_at).toLocaleTimeString()}</td>
+
+                            <td>{Object.keys(gist.files)[0].substr(0,10)}</td>
+                            <td>  <Link to={`/gist/${gist.id}`}>{Object.keys(gist.files)[0].substr(0,10)}</Link></td>
                             <td>
-                                <ButtonWIthIcon icon={"fa fa-star"}/>
-                                <ButtonWIthIcon icon={"fa fa-code-fork"}/>
+                                <span>
+                                    <ButtonWIthIcon icon={"fa fa-star"} on/>
+                                    <ButtonWIthIcon icon={"fa fa-code-fork"}/>
+
+                                </span>
+
+
                             </td>
                         </tr>
                     ))

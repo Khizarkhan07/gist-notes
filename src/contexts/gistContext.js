@@ -1,10 +1,8 @@
 import React, {createContext, useReducer} from 'react';
+import {getGists} from "../utils/clientApi";
 
 const initialState = {
-    gists: [{id: '1', userId: "1",  name: "Khizar", date: Date.now(), time: Date.now(), keyword: 'WebServer', noteBookName: 'server.xml'},
-        {id: '2', userId: "2", name: "Will", date: Date.now(), time: Date.now(), keyword: 'WebServer', noteBookName: 'server.xml'},
-        {id: '3', userId: "1",  name: "Khizar", date: Date.now(), time: Date.now(), keyword: 'WebServer', noteBookName: 'server.xml'}
-    ]
+    myData: []
 }
 const GistsStore = createContext(initialState);
 const { Provider } = GistsStore;
@@ -19,7 +17,8 @@ const GistsProvider = ( { children } ) => {
         switch(action.type) {
 
             case FETCH_GISTS:
-                return state;
+
+                return {...state, myData: action.payload}
 
             case SEARCH_GISTS:
 
@@ -28,9 +27,6 @@ const GistsProvider = ( { children } ) => {
                 state.gists = result;
 
                 return {...state};
-
-
-
 
             default:
                 return state;

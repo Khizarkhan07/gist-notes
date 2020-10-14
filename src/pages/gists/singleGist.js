@@ -8,8 +8,8 @@ function SingleGist({obj}) {
 
     const gistId= obj.match.params.gistId
 
-    const gist = state.gists.find(gist => gist.id === gistId)
-
+    const gist = state.myData.find(gist => gist.id === gistId)
+    console.log(gist)
 
     return (
         <div>

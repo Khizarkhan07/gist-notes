@@ -5,6 +5,7 @@ import logo from "../assets/images/logo.png"
 import profile from "../assets/images/pro-image.jpg"
 import {Link} from "react-router-dom";
 function GistCard(props) {
+    console.log("here", props)
     const {gist, singleGist} = props;
     const style = singleGist? "single-col": "column";
     const card = singleGist? "card-left": "card"
@@ -14,8 +15,8 @@ function GistCard(props) {
                 {singleGist && (
                     <div className={"mb-4"}>
                         <span>
-                            <img className={"mr-3"} src={profile} height={30} width={30} style={{'borderRadius': '50%'}} alt=""/>
-                            <a href={`/gist/${gist.id}`}>{gist.name}/{gist.noteBookName}</a>
+                            <img className={"mr-3"} src={gist.owner.avatar_url} height={30} width={30} style={{'borderRadius': '50%'}} alt=""/>
+                            <a href={`/gist/${gist.id}`}>{gist.owner.login}/{Object.keys(gist.files)[0]}</a>
                         </span>
                         <span style={{float: "right"}}>
 
@@ -27,7 +28,7 @@ function GistCard(props) {
 
                         </span>
                         <div className={"text-muted ml-5"}>
-                            Created:{new Date(gist.date).toDateString()}
+                            Created:{new Date(gist.created_at).toDateString()}
                         </div>
                         <hr/>
                     </div>
@@ -38,7 +39,7 @@ function GistCard(props) {
                 <div className={`${card}`}>
                     {singleGist && (
                         <div className={"ml-3"}>
-                            <Link to={'/'}>{gist.noteBookName}</Link>
+                            <Link to={'/'}>{Object.keys(gist.files)[0]}</Link>
                         </div>
                     )}
 
@@ -59,11 +60,11 @@ function GistCard(props) {
                     {!singleGist && (<div>
                         <hr/>
                         <div>
-                            <ProfileLogo src={logo}/>
-                            <a href={`/gist/${gist.id}`}>{gist.name}/{gist.noteBookName}</a>
+                            <ProfileLogo src={gist.owner.avatar_url}/>
+                            <a href={`/gist/${gist.id}`}>{gist.owner.login}/{Object.keys(gist.files)[0]}</a>
                         </div>
                         <div className={"text-muted"}>
-                            Created:{new Date(gist.date).toDateString()}
+                            Created:{new Date(gist.created_at).toDateString()}
                         </div>
 
                     </div>)}
