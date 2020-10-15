@@ -1,14 +1,21 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import "../pages/gists/gists.css"
 import ProfileLogo from "./profileLogo";
-import logo from "../assets/images/logo.png"
-import profile from "../assets/images/pro-image.jpg"
+
 import {Link} from "react-router-dom";
+import {gistsForks} from "../utils/clientApi";
+
 function GistCard(props) {
-    console.log("here", props)
     const {gist, singleGist} = props;
     const style = singleGist? "single-col": "column";
     const card = singleGist? "card-left": "card"
+    const [forks, setForks] = useState(0)
+    useEffect(()=> {
+     gistsForks(gist.forks_url).then(data=> {
+         setForks(data.length)
+     })
+    })
+
     return (
             <div className={`${style} mt-5`}>
 
@@ -23,7 +30,7 @@ function GistCard(props) {
                             <a href={"/"}>Stars</a>
                             <span className="badge badge-pill badge-light mr-1 ml-1">9</span>
                             <a href={"/"}>forks</a>
-                            <span className="badge badge-pill badge-light mr-1 ml-1">9</span>
+                            <span className="badge badge-pill badge-light mr-1 ml-1">{forks}</span>
 
 
                         </span>
@@ -61,8 +68,7 @@ function GistCard(props) {
                         <hr/>
                         <div>
                             <ProfileLogo src={gist.owner.avatar_url}/>
-                            <a href={`/gist/${gist.id}`}>{gist.owner.login}/{Object.keys(gist.files)[0]}</a>
-                        </div>
+                            <Link to={`/gist/${gist.id}`}>{gist.owner.login}/{Object.keys(gist.files)[0].substr(0,10)}</Link>                        </div>
                         <div className={"text-muted"}>
                             Created:{new Date(gist.created_at).toDateString()}
                         </div>

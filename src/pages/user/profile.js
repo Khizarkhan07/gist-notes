@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {UsersStore} from "../../contexts/userContext";
 import {GistsStore} from "../../contexts/gistContext";
 import profile from '../../assets/images/pro-image.jpg'
@@ -7,6 +7,7 @@ import GistCard from "../../components/gistCard";
 import styled from "styled-components";
 import ProfileLogo from "../../components/profileLogo";
 import {isAuthenticated} from "../../utils/sessionStorage";
+import {userGists} from "../../utils/clientApi";
 
 const StyledProfileDiv = styled.div`
    margin-top: 50px;
@@ -45,11 +46,19 @@ const StyledVrDiv = styled.div`
 
 function Profile({obj}) {
 
-    const {state} = useContext(GistsStore)
-    const userState = useContext(UsersStore)
+    const {state, dispatch} = useContext(GistsStore)
+
     const userId= obj.match.params.userId
-    const userGists = state.myData.filter(gist => gist.userId === userId);
     const user = isAuthenticated();
+
+    useEffect(()=> {
+        userGists().then(data=> {
+            if(data){
+                dispatch({type: "USER_GISTS", payload: data})
+            }
+        })
+    },[dispatch])
+
 
     return (
         <div className={"container mt-5"}>
@@ -68,12 +77,12 @@ function Profile({obj}) {
                 </StyledVrDiv>
 
                 <div className={"gists mb-5"}>
-                    {userGists[0] &&(
-                        userGists.map(gist=>
+                    {state.myData[0] &&(
+                        state.myData.map(gist=>
                                 <GistCard singleGist={true} gist={gist}/>
                             )
                     )}
-                    {!userGists[0] &&(
+                    {!state.myData[0] &&(
                         <h6>No gist found!</h6>
                     )}
 

@@ -1,5 +1,5 @@
 import React, {createContext, useReducer} from 'react';
-import {isAuthenticated} from "../utils/sessionStorage";
+import {isAuthenticated, logOut} from "../utils/sessionStorage";
 
 
 const initialState = {
@@ -17,7 +17,6 @@ const UserProvider = ( { children } ) => {
 
         switch(action.type) {
             case 'Current_User': {
-                console.log("current",isAuthenticated());
                 state.name= isAuthenticated().login;
                 state.id= isAuthenticated().id;
                 state.avatar= isAuthenticated().avatar_url;
@@ -31,6 +30,7 @@ const UserProvider = ( { children } ) => {
                 return state;
 
             case LOGOUT :
+                logOut();
                 state = {};
                 return state
 

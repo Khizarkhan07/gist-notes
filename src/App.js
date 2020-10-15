@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useContext} from 'react';
 import MainRouter from "./MainRouter";
 import {
   BrowserRouter as Router,
@@ -6,6 +6,8 @@ import {
 
 
 function App() {
+
+
   return (
     <Router>
         <MainRouter/>

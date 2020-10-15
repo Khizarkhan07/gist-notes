@@ -9,6 +9,7 @@ const { Provider } = GistsStore;
 
 const FETCH_GISTS = 'FETCH_GISTS';
 const SEARCH_GISTS = 'SEARCH_GISTS';
+const USER_GISTS = 'USER_GISTS';
 
 const GistsProvider = ( { children } ) => {
     //seprateReducer
@@ -17,16 +18,16 @@ const GistsProvider = ( { children } ) => {
         switch(action.type) {
 
             case FETCH_GISTS:
-
                 return {...state, myData: action.payload}
 
             case SEARCH_GISTS:
 
-                const result= state.gists.filter(gist => gist.name === action.payload.search);
+                const result= state.myData.filter(gist => gist.owner.login === action.payload.search);
 
-                state.gists = result;
+                return {...state, myData:result};
+            case USER_GISTS:
 
-                return {...state};
+                return {...state, myData:action.payload};
 
             default:
                 return state;

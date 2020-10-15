@@ -9,6 +9,7 @@ import ButtonWIthIcon from "../../components/buttonWIthIcon";
 import ProfileLogo from "../../components/profileLogo"
 import {Link} from "react-router-dom";
 import styled from "styled-components";
+import {isAuthenticated, logOut} from "../../utils/sessionStorage";
 
 const StyledDiv = styled.div`
     
@@ -24,12 +25,11 @@ const StyledDiv = styled.div`
 
 export const Navbar = () => {
     const {state, userDispatch} = useContext(UsersStore);
-
     const userState = useContext(UsersStore)
     const globalGist = useContext(GistsStore)
     const {dispatch} = globalGist;
     const [search, setSearch] = useState('');
-
+    console.log(isAuthenticated())
     useEffect(()=> {
         userDispatch({type:'Current_User'})
     }, [userDispatch])
@@ -65,7 +65,7 @@ export const Navbar = () => {
                     }} />
 
                     {
-                        !state.name && (
+                        !isAuthenticated().login && (
 
 
                             <ButtonWIthIcon text={"Login"} color={"blue"} font={"small"} background={"white"} handleClick={
@@ -78,7 +78,7 @@ export const Navbar = () => {
                     }
 
                     {
-                        state.name && (
+                        isAuthenticated().login && (
                             <div className="dropdown">
                                 <Link
 
@@ -88,15 +88,16 @@ export const Navbar = () => {
                                 </Link>
 
                                 <div className="dropdown-menu dropdown-menu-right mt-2" aria-labelledby="dropdownMenuButton">
-                                    <a className="dropdown-item" href={`/user/${state.id}`}><span style={{'fontSize': 'small'}}>Signed in as <br/> {state.name}</span></a>
+
+                                    <Link className="dropdown-item" to={`/user/${isAuthenticated().id}`} style={{'fontSize': 'small'}} >Signed in as <br/> {isAuthenticated().name}  </Link>
+
                                     <hr/>
-                                    <a className="dropdown-item" href={`/user/${state.id}`}><span style={{'fontSize': 'small'}}>Your gists</span></a>
-                                    <a className="dropdown-item" href={`/user/${state.id}`}><span style={{'fontSize': 'small'}}>Help</span></a>
+                                    <a className="dropdown-item" href={`/user/${isAuthenticated().id}`}><span style={{'fontSize': 'small'}}>Your gists</span></a>
+                                    <a className="dropdown-item" href={`/user/${isAuthenticated().id}`}><span style={{'fontSize': 'small'}}>Help</span></a>
                                     <button className="dropdown-item"
                                             onClick={(e)=>{
                                                 e.preventDefault();
 
-                                                console.log("here")
                                                 userDispatch({type: 'Logout'})}
 
                                             }

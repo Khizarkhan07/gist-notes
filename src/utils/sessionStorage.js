@@ -4,6 +4,16 @@ export const autheticate = (token, data) => {
     window.localStorage.setItem("user",  JSON.stringify(data));
 }
 
+export const logOut = () => {
+    if(localStorage.getItem("user")){
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
+    }
+    else{
+        return false;
+    }
+}
+
 export const isAuthenticated = () => {
     if(typeof window == "undefined"){
         return false;

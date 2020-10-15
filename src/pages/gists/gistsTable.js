@@ -2,10 +2,8 @@ import React from 'react';
 import {Link} from "react-router-dom";
 import ButtonWIthIcon from "../../components/buttonWIthIcon";
 import ProfileLogo from "../../components/profileLogo";
-import {TimeAgo} from "../../components/timeAgo";
 
 function GistsTable(props) {
-    console.log(props.gists.myData)
     const thead = {
         background: '#def5ec'
     }
@@ -32,7 +30,7 @@ function GistsTable(props) {
                         <tr key={gist.id}>
                             <th scope="row"><input type={"checkbox"}/></th>
                             <th>
-                                <Link to={`/user/${gist.userId}`}>
+                                <Link to={`/user/${gist.owner.id}`}>
                                     <ProfileLogo src={gist.owner.avatar_url}/>
 
                                 </Link>
