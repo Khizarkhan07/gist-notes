@@ -1,7 +1,7 @@
 import React,{useContext, useEffect} from 'react';
-import {GistsStore} from "../../contexts/gistContext";
-import GistCard from "../../components/gistCard";
-import {getGists} from "../../utils/clientApi"
+import {GistsStore} from "../../contexts/GistContext";
+import GistCard from "../../components/GistCard";
+import {getGists} from "../../utils/ClientApi"
 
 function SingleGist({obj}) {
 
@@ -14,14 +14,7 @@ function SingleGist({obj}) {
     const gist = state.myData?.find(gist => gist.id === gistId)
     console.log(gist)
 
-    useEffect(() => {
-        getGists().then(data=>{
-            if(data){
-                dispatch({type: "FETCH_GISTS", payload: data})
-            }
-        })
 
-    }, [])
 
     return (
         <div>

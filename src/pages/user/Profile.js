@@ -1,14 +1,12 @@
 import React, {useContext, useEffect} from 'react';
-import {UsersStore} from "../../contexts/userContext";
-import {GistsStore} from "../../contexts/gistContext";
-import profile from '../../assets/images/pro-image.jpg'
-import ButtonWIthIcon from "../../components/buttonWIthIcon";
-import GistCard from "../../components/gistCard";
+import {GistsStore} from "../../contexts/GistContext";
+import ButtonWIthIcon from "../../components/ButtonWIthIcon";
+import GistCard from "../../components/GistCard";
 import styled from "styled-components";
-import ProfileLogo from "../../components/profileLogo";
-import {isAuthenticated} from "../../utils/sessionStorage";
-import {userGists} from "../../utils/clientApi";
-
+import ProfileLogo from "../../components/ProfileLogo";
+import {isAuthenticated} from "../../utils/SessionStorage";
+import {userGists} from "../../utils/ClientApi";
+import {Redirect} from "react-router-dom";
 const StyledProfileDiv = styled.div`
    margin-top: 50px;
     height: 100%;
@@ -52,7 +50,7 @@ function Profile({obj}) {
     const user = isAuthenticated();
 
     useEffect(()=> {
-        userGists().then(data=> {
+        userGists(window.localStorage.getItem("token")).then(data=> {
             if(data){
                 dispatch({type: "USER_GISTS", payload: data})
             }
@@ -61,7 +59,13 @@ function Profile({obj}) {
 
 
     return (
+
+
         <div className={"container mt-5"}>
+
+            {!isAuthenticated() && (
+                <Redirect to={"/"} />
+            )}
             <StyledProfileDiv>
 
                 <StyledAvatarDiv>

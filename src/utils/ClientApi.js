@@ -40,11 +40,12 @@ export const getUser =(token) => {
     }).catch(err=> console.log(err));
 }
 
-export const getGists =() => {
+export const getGists =(token) => {
     return fetch(`https://api.github.com/gists/public`,{
         method: "get",
         headers: {
             Accept: "application/json",
+            Authorization: `Bearer ${token}`,
         },
 
     }).then(res => {
@@ -53,11 +54,12 @@ export const getGists =() => {
 }
 
 
-export const userGists = () => {
+export const userGists = (token) => {
     return fetch(`https://api.github.com/users/khizarkhan07/gists`,{
         method: "get",
         headers: {
             Accept: "application/json",
+            Authorization: `Bearer ${token}`,
         },
 
     }).then(res => {
@@ -65,25 +67,27 @@ export const userGists = () => {
     }).catch(err=> console.log(err));
 }
 
+export const readGits = (url) => {
 
-export const readGists =(url) => {
     return fetch(`${url}`,{
         method: "get",
-        headers: {
-            Accept: "application/json",
-        },
 
     }).then(res => {
-        return res.json();
+
+        return res.text();
     }).catch(err=> console.log(err));
 }
 
-export const gistsForks = (url) => {
+
+
+
+export const gistsForks = (url, token) => {
 
     return fetch(`${url}`,{
         method: "get",
         headers: {
             Accept: "application/json",
+            Authorization: `Bearer ${token}`,
         },
 
     }).then(res => {

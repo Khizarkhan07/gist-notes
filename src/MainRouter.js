@@ -1,9 +1,9 @@
 import React from 'react';
 import {Navbar} from './pages/navbar/Navbar'
-import Gists from "./pages/gists/gists"
-import SingleGist from "./pages/gists/singleGist";
-import Profile from "./pages/user/profile";
-import OAuth from "./pages/user/oAuth";
+import Gists from "./pages/gists/Gists"
+import SingleGist from "./pages/gists/SingleGist";
+import Profile from "./pages/user/Profile";
+import OAuth from "./pages/user/OAuth";
 import {
     Switch,
     Route,

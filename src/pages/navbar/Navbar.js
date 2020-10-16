@@ -1,15 +1,15 @@
 import React, {useContext, useState, useEffect} from 'react'
 
-import {UsersStore} from "../../contexts/userContext";
-import {GistsStore} from "../../contexts/gistContext";
+import {UsersStore} from "../../contexts/UserContext";
+import {GistsStore} from "../../contexts/GistContext";
 import logo from '../../assets/images/logo.png'
 import profile from '../../assets/images/pro-image.jpg'
-import InputField from "../../components/inputField";
-import ButtonWIthIcon from "../../components/buttonWIthIcon";
-import ProfileLogo from "../../components/profileLogo"
+import InputField from "../../components/InputField";
+import ButtonWIthIcon from "../../components/ButtonWIthIcon";
+import ProfileLogo from "../../components/ProfileLogo"
 import {Link} from "react-router-dom";
 import styled from "styled-components";
-import {isAuthenticated, logOut} from "../../utils/sessionStorage";
+import {isAuthenticated, logOut} from "../../utils/SessionStorage";
 
 const StyledDiv = styled.div`
     

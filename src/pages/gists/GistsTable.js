@@ -1,9 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Link} from "react-router-dom";
-import ButtonWIthIcon from "../../components/buttonWIthIcon";
-import ProfileLogo from "../../components/profileLogo";
+import ButtonWIthIcon from "../../components/ButtonWIthIcon";
+import ProfileLogo from "../../components/ProfileLogo";
+
 
 function GistsTable(props) {
+
+    console.log(props)
+
     const thead = {
         background: '#def5ec'
     }
@@ -26,7 +30,7 @@ function GistsTable(props) {
 
 
                 {
-                    props.gists.myData.map( gist => (
+                    props.gists.map( gist => (
                         <tr key={gist.id}>
                             <th scope="row"><input type={"checkbox"}/></th>
                             <th>
@@ -58,6 +62,8 @@ function GistsTable(props) {
 
                 </tbody>
             </table>
+
+
         </div>
     );
 }

@@ -1,7 +1,7 @@
 import React, {Component, useContext, useEffect, useState} from 'react';
-import {createAccessToken, getUser} from "../../utils/clientApi";
-import {UsersStore} from "../../contexts/userContext";
-import {autheticate} from "../../utils/sessionStorage";
+import {createAccessToken, getUser} from "../../utils/ClientApi";
+import {UsersStore} from "../../contexts/UserContext";
+import {autheticate} from "../../utils/SessionStorage";
 import {Redirect} from "react-router-dom";
 import Loader from 'react-loader-spinner'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"

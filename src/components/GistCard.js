@@ -1,20 +1,31 @@
 import React, {useEffect, useState} from 'react';
 import "../pages/gists/gists.css"
-import ProfileLogo from "./profileLogo";
+import ProfileLogo from "./ProfileLogo";
 
 import {Link} from "react-router-dom";
-import {gistsForks} from "../utils/clientApi";
+import {gistsForks, readGits} from "../utils/ClientApi";
 
 function GistCard(props) {
     const {gist, singleGist} = props;
     const style = singleGist? "single-col": "column";
     const card = singleGist? "card-left": "card"
     const [forks, setForks] = useState(0)
+    const [gistData, setGistData] = useState([])
+
     useEffect(()=> {
-     gistsForks(gist.forks_url).then(data=> {
+     gistsForks(gist.forks_url, window.localStorage.getItem('token')).then(data=> {
+
          setForks(data.length)
      })
     })
+
+    useEffect(()=> {
+
+
+        readGits( gist.files[Object.keys(gist.files)[0]].raw_url ).then(data=> {
+            setGistData(data.split("\n"))
+        })
+    }, [])
 
     return (
             <div className={`${style} mt-5`}>
@@ -53,14 +64,21 @@ function GistCard(props) {
 
 
                     <span className={"text-muted"}>
-                         <ol className="code">
+                        <ol>
+                            {gistData.slice(0,5).map(gist=>
+                            <li>
+                                {gist}
+                            </li>)}
+                        </ol>
+
+                        {/* <ol className="code">
                             <li>getBadgeClasses()</li>
                             <li>   let classes = "badge m-2 badge-";</li>
                             <li></li>
                             <li> classes += (this.props.counter.value === 0 ? "warning" : "primary")</li>
 
 
-                        </ol>
+                        </ol>*/}
 
                     </span>
 

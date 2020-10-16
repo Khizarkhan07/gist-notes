@@ -1,5 +1,5 @@
 import React, {createContext, useReducer} from 'react';
-import {getGists} from "../utils/clientApi";
+import {getGists} from "../utils/ClientApi";
 
 const initialState = {
     myData: []
