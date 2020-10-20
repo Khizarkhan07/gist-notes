@@ -1,4 +1,4 @@
-import React, {useContext, useState, useEffect} from 'react'
+import React, {useContext, useState, useEffect, useRef} from 'react'
 
 import {UsersStore} from "../../contexts/UserContext";
 import {GistsStore} from "../../contexts/GistContext";
@@ -9,7 +9,7 @@ import ButtonWIthIcon from "../../components/ButtonWIthIcon";
 import ProfileLogo from "../../components/ProfileLogo"
 import {Link} from "react-router-dom";
 import styled from "styled-components";
-import {isAuthenticated, logOut} from "../../utils/SessionStorage";
+import {isAuthenticated} from "../../utils/SessionStorage";
 
 const StyledDiv = styled.div`
     
@@ -24,12 +24,16 @@ const StyledDiv = styled.div`
 `;
 
 export const Navbar = () => {
-    const {state, userDispatch} = useContext(UsersStore);
-    const userState = useContext(UsersStore)
+    const textInput = useRef();
+    const focusTextInput = () => textInput.current.focus();
+    const {userDispatch} = useContext(UsersStore);
+
     const globalGist = useContext(GistsStore)
     const {dispatch} = globalGist;
     const [search, setSearch] = useState('');
-    console.log(isAuthenticated())
+
+
+
     useEffect(()=> {
         userDispatch({type:'Current_User'})
     }, [userDispatch])
@@ -37,7 +41,7 @@ export const Navbar = () => {
     return (
 
 
-        <nav className="navbar justify-content-between" style= {{'background': '#5acba1'}}>
+        <nav onClick={focusTextInput}  className="navbar justify-content-between" style= {{'background': '#5acba1'}}>
             <div className={"container"}>
                 <div className="navbar-brand">
 
@@ -58,7 +62,13 @@ export const Navbar = () => {
 
 
                 <form  className="form-inline" id="navbarNav">
-                    <InputField type={"Search"} placeholder={"Search"} handleChange = {(e) => setSearch(e.target.value)}/>
+
+{/*
+                    <input className="form-control" ref={textInput}  type={"Search"} placeholder={"Search"} onChange={(e) => setSearch(e.target.value)}/>
+*/}
+
+                    <InputField ref = {textInput} type={"Search"} placeholder={"Search"} handleChange = {(e) => setSearch(e.target.value)}/>
+
                     <ButtonWIthIcon icon = {"fa fa-search"} handleClick = {(e)=> {
                         e.preventDefault();
                         dispatch({type: 'SEARCH_GISTS', payload: {search: search}})
@@ -107,13 +117,7 @@ export const Navbar = () => {
                                     </button>
                                 </div>
 
-
-
                             </div>
-
-
-
-
                         )
                     }
 

@@ -1,14 +1,68 @@
 import React, {useEffect, useState} from 'react';
-import "../pages/gists/gists.css"
 import ProfileLogo from "./ProfileLogo";
 
 import {Link} from "react-router-dom";
 import {gistsForks, readGits} from "../utils/ClientApi";
+import styled from "styled-components";
+
+const StyledColDiv = styled.div`
+    
+    float: left;
+    width: 33%;
+    padding: 0 10px;
+    
+    @media screen and (max-width: 772px) {
+    
+        width: 100%;
+        display: block;
+        margin-bottom: 20px;
+        
+    }
+`;
+
+const StyledSingleColDiv = styled.div`
+   
+    padding: 0 10px;
+    margin-left: 5%;
+    margin-right: 5%;
+    
+    @media screen and (max-width: 772px) {
+    
+        width: 100%;
+        display: block;
+        margin-bottom: 20px;
+        
+    }
+`;
+
+const StyledCardLeftDiv = styled.div`
+    
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 16px;
+    text-align: left;
+    background-color: #ffffff;
+    
+    
+    
+`;
+
+const StyledCardDiv = styled.div`
+   
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 16px;
+    text-align: center;
+    background-color: #ffffff;
+    
+   
+`;
+
+
+
 
 function GistCard(props) {
-    const {gist, singleGist} = props;
-    const style = singleGist? "single-col": "column";
-    const card = singleGist? "card-left": "card"
+    const {gist, singleGist, edit} = props;
+    const StyledOuterDiv = singleGist? StyledSingleColDiv : StyledColDiv;
+    const StyledInnerDiv = singleGist? StyledCardLeftDiv: StyledCardDiv
     const [forks, setForks] = useState(0)
     const [gistData, setGistData] = useState([])
 
@@ -17,18 +71,15 @@ function GistCard(props) {
 
          setForks(data.length)
      })
-    })
-
-    useEffect(()=> {
-
 
         readGits( gist.files[Object.keys(gist.files)[0]].raw_url ).then(data=> {
             setGistData(data.split("\n"))
         })
-    }, [])
+    },[])
 
     return (
-            <div className={`${style} mt-5`}>
+
+            <StyledOuterDiv className={`mt-5`}>
 
                 {singleGist && (
                     <div className={"mb-4"}>
@@ -54,7 +105,9 @@ function GistCard(props) {
                 )}
 
 
-                <div className={`${card}`}>
+                <StyledInnerDiv>
+
+
                     {singleGist && (
                         <div className={"ml-3"}>
                             <Link to={'/'}>{Object.keys(gist.files)[0]}</Link>
@@ -62,25 +115,31 @@ function GistCard(props) {
                     )}
 
 
+                    {singleGist && edit && (
+                        <div>
+                            <textarea cols={100} className={"text-muted"} value={gistData} onChange={
+                                (e) => {
+                                     setGistData( e.target.value.split("\n"))
+                                }
 
-                    <span className={"text-muted"}>
+                            }/>
+                            <br/>
+                            <button className="badge badge-secondary mt-2">Submit</button>
+                        </div>
+
+                    )}
+
+
+                        <span className={"text-muted"}>
                         <ol>
                             {gistData.slice(0,5).map(gist=>
-                            <li>
-                                {gist}
-                            </li>)}
+                                <li>
+                                    {gist.substr(0,20)}
+                                </li>)}
                         </ol>
 
-                        {/* <ol className="code">
-                            <li>getBadgeClasses()</li>
-                            <li>   let classes = "badge m-2 badge-";</li>
-                            <li></li>
-                            <li> classes += (this.props.counter.value === 0 ? "warning" : "primary")</li>
+                        </span>
 
-
-                        </ol>*/}
-
-                    </span>
 
                     {!singleGist && (<div>
                         <hr/>
@@ -93,8 +152,8 @@ function GistCard(props) {
 
                     </div>)}
 
-                </div>
-            </div>
+                </StyledInnerDiv>
+            </StyledOuterDiv>
 
     );
 }

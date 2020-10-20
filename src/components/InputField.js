@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {forwardRef} from 'react';
 
-function InputField(props) {
+function InputField(props, ref) {
     const {placeholder, type, handleChange, value} = props
 
     return (
-        <input className="form-control" value={value} type={type} placeholder={placeholder} onChange={handleChange}/>
+        <input className="form-control" ref={ref} value={value} type={type} placeholder={placeholder} onChange={handleChange}/>
     );
 }
 
-export default InputField;
+export default forwardRef(InputField);

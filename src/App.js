@@ -1,4 +1,4 @@
-import React, {useEffect, useContext} from 'react';
+import React from 'react';
 import MainRouter from "./MainRouter";
 import {
   BrowserRouter as Router,

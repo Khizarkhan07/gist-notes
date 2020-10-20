@@ -1,24 +1,40 @@
-import React,{useContext, useEffect} from 'react';
-import {GistsStore} from "../../contexts/GistContext";
+import React, { useEffect, useState} from 'react';
 import GistCard from "../../components/GistCard";
-import {getGists} from "../../utils/ClientApi"
+import {Link} from "react-router-dom";
+import {isAuthenticated} from "../../utils/SessionStorage";
+import {gistsById} from "../../utils/ClientApi";
 
 function SingleGist({obj}) {
 
-    
-
-    const {state, dispatch} = useContext(GistsStore);
-    console.log(state)
     const gistId= obj.match.params.gistId
-    console.log(gistId)
-    const gist = state.myData?.find(gist => gist.id === gistId)
+    const [gist, setGist] = useState('')
+
+    useEffect(()=> {
+        gistsById(gistId).then(data=> {
+            if(data){
+               setGist(data)
+            }
+        })
+    }, [])
     console.log(gist)
-
-
-
     return (
         <div>
-            <GistCard singleGist={true} gist={gist}/>
+            {gist.owner && (
+
+                <GistCard singleGist={true} gist={gist}/>
+
+
+
+            )}
+            { gist.owner && isAuthenticated() && isAuthenticated().id===gist.owner.id && (
+                <div className={"mt-2 container"}>
+                    <Link to={`/edit/${gistId}`}>
+                        <span className="badge badge-secondary">Edit</span>
+                    </Link>
+                </div>
+            )}
+
+
         </div>
     );
 }

@@ -1,12 +1,10 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Link} from "react-router-dom";
 import ButtonWIthIcon from "../../components/ButtonWIthIcon";
 import ProfileLogo from "../../components/ProfileLogo";
 
 
 function GistsTable(props) {
-
-    console.log(props)
 
     const thead = {
         background: '#def5ec'

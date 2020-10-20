@@ -94,3 +94,17 @@ export const gistsForks = (url, token) => {
         return res.json();
     }).catch(err=> console.log(err));
 }
+
+
+export const gistsById = (id) => {
+
+    return fetch(`https://api.github.com/gists/${id}`,{
+        method: "get",
+        headers: {
+            Accept: "application/json"
+        },
+
+    }).then(res => {
+        return res.json();
+    }).catch(err=> console.log(err));
+}

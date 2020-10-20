@@ -1,4 +1,4 @@
-import React, {Component, useContext, useEffect, useState} from 'react';
+import React, { useContext, useEffect, useState} from 'react';
 import {createAccessToken, getUser} from "../../utils/ClientApi";
 import {UsersStore} from "../../contexts/UserContext";
 import {autheticate} from "../../utils/SessionStorage";
@@ -40,14 +40,16 @@ function OAuth() {
         return (
             <div>
                 {loading && (
+                        <div>
+                            <Loader style={{'marginTop': '20%', 'marginLeft': '45%'}}
+                                type="Puff"
+                                color="#00BFFF"
+                                height={100}
+                                width={100}
 
-                        <Loader
-                            type="Puff"
-                            color="#00BFFF"
-                            height={100}
-                            width={100}
+                            />
+                        </div>
 
-                        />
 
 
                 )}

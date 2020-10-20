@@ -4,6 +4,7 @@ import Gists from "./pages/gists/Gists"
 import SingleGist from "./pages/gists/SingleGist";
 import Profile from "./pages/user/Profile";
 import OAuth from "./pages/user/OAuth";
+import EditGist from "./pages/gists/EditGist";
 import {
     Switch,
     Route,
@@ -43,6 +44,8 @@ function MainRouter() {
                       <OAuth />
                     )}
                 />
+
+                <Route exact={true}  path={'/edit/:gistId'} component={EditGist} />
 
                 <Redirect to="/" />
             </Switch>
