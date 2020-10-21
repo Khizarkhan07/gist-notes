@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {gistsById} from "../../utils/ClientApi";
 import GistCard from "../../components/GistCard";
-import {Link} from "react-router-dom";
+import useApi from "../../hooks/useApi";
 
 function EditGist({match}) {
     const id = match.params.gistId
 
     const [gist, setGist] = useState('');
+    const {gistsById} = useApi('')
     useEffect(()=> {
         gistsById(id).then(data=> {
             if(data){

@@ -1,11 +1,10 @@
 import React, { useEffect, useState} from 'react';
 import GistCard from "../../components/GistCard";
 import {Link} from "react-router-dom";
-import {isAuthenticated} from "../../utils/SessionStorage";
-import {gistsById} from "../../utils/ClientApi";
-
+import {isAuthenticated} from "../../utils";
+import useApi from "../../hooks/useApi";
 function SingleGist({obj}) {
-
+    const {gistsById} = useApi('')
     const gistId= obj.match.params.gistId
     const [gist, setGist] = useState('')
 

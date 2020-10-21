@@ -9,7 +9,7 @@ import ButtonWIthIcon from "../../components/ButtonWIthIcon";
 import ProfileLogo from "../../components/ProfileLogo"
 import {Link} from "react-router-dom";
 import styled from "styled-components";
-import {isAuthenticated} from "../../utils/SessionStorage";
+import {isAuthenticated} from "../../utils";
 
 const StyledDiv = styled.div`
     

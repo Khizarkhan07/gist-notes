@@ -1,15 +1,15 @@
 import React, { useContext, useEffect, useState} from 'react';
-import {createAccessToken, getUser} from "../../utils/ClientApi";
 import {UsersStore} from "../../contexts/UserContext";
-import {autheticate} from "../../utils/SessionStorage";
+import {autheticate} from "../../utils";
 import {Redirect} from "react-router-dom";
 import Loader from 'react-loader-spinner'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
+import useApi from "../../hooks/useApi";
+
 const queryString = require('query-string');
 
-
 function OAuth() {
-
+    const {createAccessToken, getUser} = useApi('')
     const {userDispatch} = useContext(UsersStore)
     const [loading, setLoading]= useState(true);
 

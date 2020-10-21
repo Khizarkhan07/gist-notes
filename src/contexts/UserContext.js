@@ -1,5 +1,5 @@
 import React, {createContext, useReducer} from 'react';
-import {isAuthenticated, logOut} from "../utils/SessionStorage";
+import {isAuthenticated, logOut} from "../utils";
 
 
 const initialState = {

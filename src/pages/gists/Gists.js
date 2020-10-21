@@ -3,11 +3,10 @@ import {GistsStore} from "../../contexts/GistContext";
 import GistsTable from "./GistsTable"
 import GistCard from "../../components/GistCard";
 import ButtonWIthIcon from "../../components/ButtonWIthIcon";
-import {getGists} from "../../utils/ClientApi";
-import {isAuthenticated} from "../../utils/SessionStorage";
+import {isAuthenticated} from "../../utils";
 import { SyncLoader } from "react-spinners"
 import styled from "styled-components";
-
+import useApi from "../../hooks/useApi";
 const StyledLayoutButton = styled.div`
     
     margin-top: 1%;
@@ -52,6 +51,8 @@ const StyledGistDiv = styled.div`
 `;
 
 function Gists() {
+    const {getGists} = useApi('');
+
     const [layout, setLayout] = useState('list')
 
     const {state, dispatch} = useContext(GistsStore);

@@ -4,8 +4,8 @@ import ButtonWIthIcon from "../../components/ButtonWIthIcon";
 import GistCard from "../../components/GistCard";
 import styled from "styled-components";
 import ProfileLogo from "../../components/ProfileLogo";
-import {isAuthenticated} from "../../utils/SessionStorage";
-import {userGists} from "../../utils/ClientApi";
+import {isAuthenticated} from "../../utils";
+import useApi from "../../hooks/useApi";
 import {Redirect} from "react-router-dom";
 const StyledProfileDiv = styled.div`
    margin-top: 50px;
@@ -43,10 +43,9 @@ const StyledVrDiv = styled.div`
 `;
 
 function Profile({obj}) {
-
+    const {userGists} =useApi('')
     const {state, dispatch} = useContext(GistsStore)
 
-    const userId= obj.match.params.userId
     const user = isAuthenticated();
 
     useEffect(()=> {

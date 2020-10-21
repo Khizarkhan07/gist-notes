@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import ProfileLogo from "./ProfileLogo";
 
 import {Link} from "react-router-dom";
-import {gistsForks, readGits} from "../utils/ClientApi";
+import useApi from "../hooks/useApi";
 import styled from "styled-components";
 
 const StyledColDiv = styled.div`
@@ -57,9 +57,10 @@ const StyledCardDiv = styled.div`
 `;
 
 
-
-
 function GistCard(props) {
+
+    const {readGits, gistsForks} = useApi('');
+
     const {gist, singleGist, edit} = props;
     const StyledOuterDiv = singleGist? StyledSingleColDiv : StyledColDiv;
     const StyledInnerDiv = singleGist? StyledCardLeftDiv: StyledCardDiv
