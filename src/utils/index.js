@@ -39,3 +39,10 @@ export const isAuthToken= () => {
     }
 };
 
+export const PageNumbers = (length, perPage) => {
+    const pageNumbers = [];
+    for (let i = 1; i <= Math.ceil(length / perPage); i++) {
+        pageNumbers.push(i);
+    }
+    return pageNumbers;
+}

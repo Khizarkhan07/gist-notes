@@ -3,7 +3,7 @@ import {GistsStore} from "../../contexts/GistContext";
 import GistsTable from "./GistsTable"
 import GistCard from "../../components/GistCard";
 import ButtonWIthIcon from "../../components/ButtonWIthIcon";
-import {isAuthenticated} from "../../utils";
+import {isAuthenticated, PageNumbers} from "../../utils";
 import { SyncLoader } from "react-spinners"
 import styled from "styled-components";
 import useApi from "../../hooks/useApi";
@@ -50,44 +50,37 @@ const StyledGistDiv = styled.div`
     
 `;
 
-function Gists() {
-    const {getGists} = useApi('');
+const StyledLoaderDiv = styled.div`
+    
+    margin-top: 20%;
+    margin-left: 45%;
+    
+`;
 
-    const [layout, setLayout] = useState('list')
+function Gists() {
+
 
     const {state, dispatch} = useContext(GistsStore);
 
+    const {getGists} = useApi('');
+    const [layout, setLayout] = useState('list')
+    const [loading, setLoading] = useState(false)
     const [currentPage, setCurrentPage] = useState(1,)
     const [gistPerPage] = useState(15,)
 
-
-
-    const indexOfLastGist = useCallback(()=> {
-        return (
-            currentPage * gistPerPage
-        )
-    }, [currentPage , gistPerPage])
-
-
-    const indexOfFirstGist = useCallback(()=> {
-        return (
-            indexOfLastGist - gistPerPage
-        )
-    }, [indexOfLastGist , gistPerPage])
-
-    const currentGists = state.myData.slice(indexOfFirstGist(), indexOfLastGist());
-
-    const pageNumbers = [];
-    for (let i = 1; i <= Math.ceil(state.myData.length / gistPerPage); i++) {
-        pageNumbers.push(i);
-    }
+    const indexOfLastGist =  currentPage * gistPerPage;
+    const indexOfFirstGist = indexOfLastGist - gistPerPage
+    const currentGists = state.myData.slice(indexOfFirstGist, indexOfLastGist);
+    const pageNumbers = PageNumbers(state.myData.length, gistPerPage);
 
 
     useEffect(() => {
         if(isAuthenticated()){
+            setLoading(true)
             getGists( window.localStorage.getItem('token') ).then(data=>{
                 if(data){
                     dispatch({type: "FETCH_GISTS", payload: data})
+                    setLoading(false)
                 }
             })
         }
@@ -111,20 +104,20 @@ function Gists() {
     return (
 
         <div>
-            {!currentGists[0] && (
-                <div style={{'marginTop': '20%', 'marginLeft': '45%'}}>
+            {loading && (
+                <StyledLoaderDiv>
                     <SyncLoader
                         size={15}
                         //size={"150px"} this also works
                         color={"#5acba1"}
                         loading={true}
                     />
-                </div>
+                </StyledLoaderDiv>
 
             )}
 
             {
-                currentGists[0] && (
+                !loading && (
                     <div className={"container"}>
 
                         <StyledLayoutButton >

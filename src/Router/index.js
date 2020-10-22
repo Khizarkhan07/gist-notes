@@ -1,10 +1,10 @@
 import React from 'react';
-import {Navbar} from './pages/navbar/Navbar'
-import Gists from "./pages/gists/Gists"
-import SingleGist from "./pages/gists/SingleGist";
-import Profile from "./pages/user/Profile";
-import OAuth from "./pages/user/OAuth";
-import EditGist from "./pages/gists/EditGist";
+import {Navbar} from '../pages/navbar/Navbar'
+import Gists from "../pages/gists/Gists"
+import SingleGist from "../pages/gists/SingleGist";
+import Profile from "../pages/user/Profile";
+import OAuth from "../pages/user/OAuth";
+import EditGist from "../pages/gists/EditGist";
 import {
     Switch,
     Route,
@@ -12,7 +12,7 @@ import {
 } from 'react-router-dom'
 
 
-function MainRouter() {
+function Index() {
     return (
 
         <div>
@@ -53,4 +53,4 @@ function MainRouter() {
     );
 }
 
-export default MainRouter;
+export default Index;
