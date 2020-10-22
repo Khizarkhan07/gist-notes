@@ -38,6 +38,23 @@ export const Navbar = () => {
         userDispatch({type:'Current_User'})
     }, [userDispatch])
 
+
+    const handleSearch = (e)=> {
+        e.preventDefault();
+        dispatch({type: 'SEARCH_GISTS', payload: {search: search}})
+    }
+
+    const handleLogin = (e)=> {
+        e.preventDefault()
+        window.location.href = 'https://github.com/login/oauth/authorize?client_id=01b5f613e35062481297';
+    }
+
+    const handleLogout = (e) => {
+        e.preventDefault();
+
+        userDispatch({type: 'Logout'})
+    }
+
     return (
 
 
@@ -63,27 +80,26 @@ export const Navbar = () => {
 
                 <form  className="form-inline" id="navbarNav">
 
-{/*
-                    <input className="form-control" ref={textInput}  type={"Search"} placeholder={"Search"} onChange={(e) => setSearch(e.target.value)}/>
-*/}
+                    <InputField
+                        ref = {textInput}
+                        type={"Search"}
+                        placeholder={"Search"}
+                        handleChange = {(e) => setSearch(e.target.value)}
+                    />
 
-                    <InputField ref = {textInput} type={"Search"} placeholder={"Search"} handleChange = {(e) => setSearch(e.target.value)}/>
-
-                    <ButtonWIthIcon icon = {"fa fa-search"} handleClick = {(e)=> {
-                        e.preventDefault();
-                        dispatch({type: 'SEARCH_GISTS', payload: {search: search}})
-                    }} />
+                    <ButtonWIthIcon icon = {"fa fa-search"} handleClick = {handleSearch} />
 
                     {
                         !isAuthenticated().login && (
 
 
-                            <ButtonWIthIcon text={"Login"} color={"blue"} font={"small"} background={"white"} handleClick={
-                                (e)=> {
-                                    e.preventDefault()
-                                    window.location.href = 'https://github.com/login/oauth/authorize?client_id=01b5f613e35062481297';
-                                }
-                            }/>
+                            <ButtonWIthIcon
+                                text={"Login"}
+                                color={"blue"}
+                                font={"small"}
+                                background={"white"}
+                                handleClick={handleLogin}
+                            />
                         )
                     }
 
@@ -104,16 +120,12 @@ export const Navbar = () => {
                                     <hr/>
                                     <a className="dropdown-item" href={`/user/${isAuthenticated().id}`}><span style={{'fontSize': 'small'}}>Your gists</span></a>
                                     <a className="dropdown-item" href={`/user/${isAuthenticated().id}`}><span style={{'fontSize': 'small'}}>Help</span></a>
-                                    <button className="dropdown-item"
-                                            onClick={(e)=>{
-                                                e.preventDefault();
 
-                                                userDispatch({type: 'Logout'})}
-
-                                            }
-
+                                    <button
+                                        className="dropdown-item"
+                                        onClick={handleLogout}
                                     >
-                                        <span style={{'fontSize': 'small'}} >Signout</span>
+                                        <span>Signout</span>
                                     </button>
                                 </div>
 

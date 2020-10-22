@@ -2,12 +2,19 @@ import React from 'react';
 import {Link} from "react-router-dom";
 import ButtonWIthIcon from "../../components/ButtonWIthIcon";
 import ProfileLogo from "../../components/ProfileLogo";
-
+import useApi from "../../hooks/useApi";
 
 function GistsTable(props) {
-
+    const {forkGist} = useApi('')
     const thead = {
         background: '#def5ec'
+    }
+
+    const handleForkGist = (gistId)=> {
+        forkGist(gistId, window.localStorage.getItem('token'))
+            .then(data=> {
+                console.log(data)
+            })
     }
     return (
         <div>
@@ -46,8 +53,12 @@ function GistsTable(props) {
                             <td>  <Link to={`/gist/${gist.id}`}>{Object.keys(gist.files)[0].substr(0,10)}</Link></td>
                             <td>
                                 <span>
-                                    <ButtonWIthIcon icon={"fa fa-star"} on/>
-                                    <ButtonWIthIcon icon={"fa fa-code-fork"}/>
+                                    <ButtonWIthIcon icon={"fa fa-star"}/>
+                                    <ButtonWIthIcon icon={"fa fa-code-fork"}
+                                        handleClick = {()=> {
+                                            handleForkGist(gist.id)
+                                        }}
+                                    />
 
                                 </span>
 

@@ -111,7 +111,21 @@ const useApi = (initialState = '') => {
     }
 
 
-    return { getGists, login, createAccessToken, getUser, userGists, readGits, gistsForks, gistsById }
+    const forkGist = (id, token) => {
+
+        return fetch(`https://api.github.com/gists/${id}/forks`,{
+            method: "POST",
+            headers: {
+                Accept: "application/vnd.github.v3+json",
+                Authorization: `Bearer ${token}`,
+            },
+
+        }).then(res => {
+            return res.json();
+        }).catch(err=> console.log(err));
+    }
+
+    return { getGists, login, createAccessToken, getUser, userGists, readGits, gistsForks, gistsById, forkGist }
 }
 
 export default useApi
