@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, {useState, useEffect, useRef, useCallback} from "react";
 
 import { UserContext } from "../../contexts/UserContext";
 import { GistContext } from "../../contexts/GistContext";
@@ -10,6 +10,8 @@ import ProfileLogo from "../../components/ProfileLogo";
 import { Link } from "react-router-dom";
 import { getAuthenticatedUser, logOut } from "../../utils";
 import { StyledDiv } from "./Navbar.styles";
+
+const CLIENT_ID = '01b5f613e35062481297'
 
 export const Navbar = () => {
   const textInput = useRef();
@@ -26,22 +28,31 @@ export const Navbar = () => {
     userDispatch({ type: "Current_User" });
   }, []);
 
-  const handleSearch = (e) => {
+
+
+  const handleSearch =   useCallback((e) => {
     e.preventDefault();
     dispatch({ type: "SEARCH_GISTS", payload: { search } });
-  };
+  }, [search]);
 
-  const handleLogin = (e) => {
+
+  const handleSearchChange = useCallback((e)=> {
+     setSearch(e.target.value)
+  }, [search])
+
+  const handleLogin = useCallback((e) => {
     e.preventDefault();
     window.location.href =
-      "https://github.com/login/oauth/authorize?client_id=01b5f613e35062481297";
-  };
+      `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}`;
+  }, [CLIENT_ID]);
 
-  const handleLogout = (e) => {
+  const handleLogout = useCallback((e) => {
     e.preventDefault();
     logOut();
     userDispatch({ type: "Logout" });
-  };
+  }, [CLIENT_ID]);
+
+
 
   return (
     <nav
@@ -70,7 +81,7 @@ export const Navbar = () => {
             ref={textInput}
             type={"Search"}
             placeholder={"Search"}
-            handleChange={(e) => setSearch(e.target.value)}
+            handleChange={handleSearchChange}
           />
 
           <ButtonWIthIcon icon={"fa fa-search"} handleClick={handleSearch} />

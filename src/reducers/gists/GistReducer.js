@@ -7,6 +7,7 @@ export const gistReducer = (state, action) => {
       return { ...state, myData: action.payload };
 
     case GistActionType.SEARCH_GISTS:
+      console.log( action.payload.search)
       return {
         ...state,
         myData: searchGist(state.myData, action.payload.search),

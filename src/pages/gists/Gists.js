@@ -5,7 +5,7 @@ import React, {
   useMemo,
   useCallback,
 } from "react";
-import {GistContext} from "../../contexts/GistContext";
+import { GistContext } from "../../contexts/GistContext";
 import GistsTable from "./GistsTable";
 import Card from "../../components/Card";
 import ButtonWIthIcon from "../../components/ButtonWIthIcon";
@@ -20,7 +20,7 @@ import {
 } from "./Gists.styles";
 
 const Gists = () => {
-  const { state, dispatch } = GistContext()
+  const { state, dispatch } = GistContext();
 
   const { getGists } = useApi("");
   const [layout, setLayout] = useState("list");
@@ -49,7 +49,17 @@ const Gists = () => {
     return currentGists.map((gist) => <Card key={gist.id} gist={gist} />);
   }, [currentGists]);
 
-  console.log(renderGrid);
+  const handleNextPage = useCallback(() => {
+    if (currentPage < pageNumbers.length)
+      setCurrentPage(Number(currentPage + 1));
+  }, [currentPage]);
+
+
+  const handlePreviousPage = useCallback(() => {
+    if (currentPage > 1) {
+      setCurrentPage(Number(currentPage - 1));
+    }
+  }, [currentPage]);
 
   return (
     <div>
@@ -94,10 +104,7 @@ const Gists = () => {
           <StyledFooterDiv>
             <div className={"btn-center"}>
               <ButtonWIthIcon
-                handleClick={(e) => {
-                  if (currentPage < pageNumbers.length)
-                    setCurrentPage(Number(currentPage + 1));
-                }}
+                handleClick={handleNextPage}
                 font={"small"}
                 background={"#5acba1"}
                 color={"white"}
@@ -107,11 +114,7 @@ const Gists = () => {
             </div>
             <div className={"page-buttons"}>
               <ButtonWIthIcon
-                handleClick={(e) => {
-                  if (currentPage > 1) {
-                    setCurrentPage(Number(currentPage - 1));
-                  }
-                }}
+                handleClick={handlePreviousPage}
                 background={"#5acba1"}
                 color={"white"}
                 font={"x-small"}
@@ -119,7 +122,7 @@ const Gists = () => {
               />
 
               <ButtonWIthIcon
-                handleClick={(e) => {
+                handleClick={() => {
                   if (currentPage < pageNumbers.length)
                     setCurrentPage(Number(currentPage + 1));
                 }}
