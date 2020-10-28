@@ -1,5 +1,5 @@
-import React, {useEffect, useState } from "react";
-import {UserContext} from "../../contexts/UserContext";
+import React, { useEffect, useState } from "react";
+import { UserContext } from "../../contexts/UserContext";
 import { autheticate } from "../../utils";
 import { Redirect } from "react-router-dom";
 import Loader from "react-loader-spinner";
@@ -29,12 +29,13 @@ const OAuth = () => {
 
   return (
     <div>
-      {loading && (
+      {loading ? (
         <StyledLoaderDiv>
           <Loader type="Puff" color="#00BFFF" height={100} width={100} />
         </StyledLoaderDiv>
+      ) : (
+        <Redirect to={"/"} />
       )}
-      {!loading && <Redirect to={"/"} />}
     </div>
   );
 };

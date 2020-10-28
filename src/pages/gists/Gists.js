@@ -1,5 +1,4 @@
 import React, {
-  useContext,
   useState,
   useEffect,
   useMemo,
@@ -12,6 +11,7 @@ import ButtonWIthIcon from "../../components/ButtonWIthIcon";
 import { getAuthenticatedUser, PageNumbers } from "../../utils";
 import { SyncLoader } from "react-spinners";
 import useApi from "../../hooks/useApi";
+import {useFetch} from "../../hooks/useFetch";
 import {
   StyledFooterDiv,
   StyledGistDiv,
