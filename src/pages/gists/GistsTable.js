@@ -33,40 +33,42 @@ const GistsTable = (props) => {
           </tr>
         </thead>
         <tbody>
-          {props.gists.map((gist) => (
-            <tr key={gist.id}>
-              <th scope="row">
-                <input type={"checkbox"} />
-              </th>
-              <th>
-                <Link to={`/user/${gist.owner.id}`}>
-                  <ProfileLogo src={gist.owner.avatar_url} />
-                </Link>
-              </th>
-              <td>{gist.owner.login}</td>
-              <td>{new Date(gist.created_at).toDateString()}</td>
-              <td>{new Date(gist.created_at).toLocaleTimeString()}</td>
+          {props.gists.map((gist) => {
+            const fileName = Object.keys(gist.files)[0].substr(0, 10);
 
-              <td>{Object.keys(gist.files)[0].substr(0, 10)}</td>
-              <td>
-                {" "}
-                <Link to={`/gist/${gist.id}`}>
-                  {Object.keys(gist.files)[0].substr(0, 10)}
-                </Link>
-              </td>
-              <td>
-                <span>
-                  <ButtonWIthIcon icon={"fa fa-star"} />
-                  <ButtonWIthIcon
-                    icon={"fa fa-code-fork"}
-                    handleClick={() => {
-                      handleForkGist(gist.id);
-                    }}
-                  />
-                </span>
-              </td>
-            </tr>
-          ))}
+            return (
+              <tr key={gist.id}>
+                <th scope="row">
+                  <input type={"checkbox"} />
+                </th>
+                <th>
+                  <Link to={`/user/${gist.owner.id}`}>
+                    <ProfileLogo src={gist.owner.avatar_url} />
+                  </Link>
+                </th>
+                <td>{gist.owner.login}</td>
+                <td>{new Date(gist.created_at).toDateString()}</td>
+                <td>{new Date(gist.created_at).toLocaleTimeString()}</td>
+
+                <td>{fileName}</td>
+                <td>
+                  {" "}
+                  <Link to={`/gist/${gist.id}`}>{fileName}</Link>
+                </td>
+                <td>
+                  <span>
+                    <ButtonWIthIcon icon={"fa fa-star"} />
+                    <ButtonWIthIcon
+                      icon={"fa fa-code-fork"}
+                      handleClick={() => {
+                        handleForkGist(gist.id);
+                      }}
+                    />
+                  </span>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>

@@ -31,7 +31,7 @@ const Card = (props) => {
       setGistData(data.split("\n"));
     });
   }, []);
-
+  const fileName = Object.keys(gist.files)[0];
   return (
     <StyledOuterDiv className={`mt-5`}>
       {singleGist && (
@@ -46,7 +46,7 @@ const Card = (props) => {
               alt=""
             />
             <a href={`/gist/${gist.id}`}>
-              {gist.owner.login}/{Object.keys(gist.files)[0]}
+              {gist.owner.login}/{fileName}
             </a>
           </span>
           <span style={{ float: "right" }}>
@@ -67,7 +67,7 @@ const Card = (props) => {
       <StyledInnerDiv>
         {singleGist && (
           <div className={"ml-3"}>
-            <Link to={"/"}>{Object.keys(gist.files)[0]}</Link>
+            <Link to={"/"}>{fileName}</Link>
           </div>
         )}
 
@@ -100,7 +100,7 @@ const Card = (props) => {
             <div>
               <ProfileLogo src={gist.owner.avatar_url} />
               <Link to={`/gist/${gist.id}`}>
-                {gist.owner.login}/{Object.keys(gist.files)[0].substr(0, 10)}
+                {gist.owner.login}/{fileName.substr(0, 10)}
               </Link>{" "}
             </div>
             <div className={"text-muted"}>
