@@ -1,7 +1,7 @@
 import React, {useContext, useState, useEffect, useMemo, useCallback} from 'react';
 import {GistsStore} from "../../contexts/GistContext";
 import GistsTable from "./GistsTable"
-import GistCard from "../../components/GistCard";
+import Card from "../../components/Card";
 import ButtonWIthIcon from "../../components/ButtonWIthIcon";
 import {isAuthenticated, PageNumbers} from "../../utils";
 import { SyncLoader } from "react-spinners"
@@ -57,7 +57,7 @@ const StyledLoaderDiv = styled.div`
     
 `;
 
-function Gists() {
+const Gists = () => {
 
 
     const {state, dispatch} = useContext(GistsStore);
@@ -92,7 +92,7 @@ function Gists() {
         
         return (
             currentGists.map(gist=>
-                <GistCard key={gist.id} gist={gist}/>
+                <Card key={gist.id} gist={gist}/>
             )
         ) 
     }, [currentGists])

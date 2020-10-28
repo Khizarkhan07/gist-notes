@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import GistCard from "../../components/GistCard";
+import Card from "../../components/Card";
 import useApi from "../../hooks/useApi";
 
-function EditGist({match}) {
+const EditGist = ({match}) => {
     const id = match.params.gistId
 
     const [gist, setGist] = useState('');
@@ -19,7 +19,7 @@ function EditGist({match}) {
         <div>
             {gist.owner&& (
                 <div>
-                    <GistCard edit={true} singleGist={true} gist={gist}/>
+                    <Card edit={true} singleGist={true} gist={gist}/>
 
                 </div>
 

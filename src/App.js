@@ -1,18 +1,17 @@
 import React from 'react';
-import Index from "./router";
+import Routes from "./router/Routes";
 import {
-  BrowserRouter as Router,
+    BrowserRouter as Router,
 } from 'react-router-dom'
 
 
-function App() {
+const App = () => {
 
-
-  return (
-    <Router>
-        <Index/>
-    </Router>
-  );
+    return (
+        <Router>
+            <Routes/>
+        </Router>
+    );
 }
 
 export default App;

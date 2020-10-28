@@ -8,7 +8,7 @@ const StyledImg = styled.img`
 `;
 
 
-function ProfileLogo(props) {
+const ProfileLogo = (props) => {
     const {handleClick, profile} = props
 
     return (

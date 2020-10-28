@@ -1,7 +1,9 @@
 import React, {createContext, useReducer} from 'react';
 import {gistReducer} from "../reducers/gists/GistReducer";
 
-const initialState = {
+
+
+const initialState  = {
     myData: []
 }
 const GistsStore = createContext(initialState);

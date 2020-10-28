@@ -1,7 +1,7 @@
 import React, {useContext, useEffect} from 'react';
 import {GistsStore} from "../../contexts/GistContext";
 import ButtonWIthIcon from "../../components/ButtonWIthIcon";
-import GistCard from "../../components/GistCard";
+import Card from "../../components/Card";
 import styled from "styled-components";
 import ProfileLogo from "../../components/ProfileLogo";
 import {isAuthenticated} from "../../utils";
@@ -42,7 +42,7 @@ const StyledVrDiv = styled.div`
     
 `;
 
-function Profile({obj}) {
+const Profile = ({obj}) => {
     const {userGists} =useApi('')
     const {state, dispatch} = useContext(GistsStore)
 
@@ -82,7 +82,7 @@ function Profile({obj}) {
                 <div className={"gists mb-5"}>
                     {state.myData[0] &&(
                         state.myData.map(gist=>
-                                <GistCard singleGist={true} gist={gist}/>
+                                <Card singleGist={true} gist={gist}/>
                             )
                     )}
                     {!state.myData[0] &&(

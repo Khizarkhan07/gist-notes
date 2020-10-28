@@ -4,7 +4,7 @@ import ButtonWIthIcon from "../../components/ButtonWIthIcon";
 import ProfileLogo from "../../components/ProfileLogo";
 import useApi from "../../hooks/useApi";
 
-function GistsTable(props) {
+const GistsTable = (props) => {
     const {forkGist} = useApi('')
     const thead = {
         background: '#def5ec'

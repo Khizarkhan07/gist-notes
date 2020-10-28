@@ -1,6 +1,6 @@
 import React, {forwardRef} from 'react';
 
-function InputField(props, ref) {
+const InputField = (props, ref) => {
     const {placeholder, type, handleChange, value} = props
 
     return (

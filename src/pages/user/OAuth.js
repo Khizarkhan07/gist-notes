@@ -17,7 +17,7 @@ const StyledLoaderDiv = styled.div`
     
 `;
 
-function OAuth() {
+const OAuth = () => {
     const {createAccessToken, getUser} = useApi('')
     const {userDispatch} = useContext(UsersStore)
     const [loading, setLoading]= useState(true);

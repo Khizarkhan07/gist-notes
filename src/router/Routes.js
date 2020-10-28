@@ -12,12 +12,11 @@ import {
 } from 'react-router-dom'
 
 
-function Index() {
+const Routes = () => {
     return (
 
         <div>
             <Navbar />
-
 
             <Switch>
                 <Route
@@ -29,7 +28,7 @@ function Index() {
                 />
                 <Route exact path="/gist/:gistId" render={(obj) =>
 
-                        <SingleGist obj = {obj} />
+                    <SingleGist obj = {obj} />
 
                 } />
 
@@ -41,7 +40,7 @@ function Index() {
                     exact
                     path="/oauth-callback"
                     render={() => (
-                      <OAuth />
+                        <OAuth />
                     )}
                 />
 
@@ -53,4 +52,4 @@ function Index() {
     );
 }
 
-export default Index;
+export default Routes;

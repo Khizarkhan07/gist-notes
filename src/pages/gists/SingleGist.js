@@ -1,9 +1,10 @@
 import React, { useEffect, useState} from 'react';
-import GistCard from "../../components/GistCard";
+import Card from "../../components/Card";
 import {Link} from "react-router-dom";
 import {isAuthenticated} from "../../utils";
 import useApi from "../../hooks/useApi";
-function SingleGist({obj}) {
+
+const SingleGist = ({obj}) => {
     const {gistsById} = useApi('')
     const gistId= obj.match.params.gistId
     const [gist, setGist] = useState('')
@@ -20,7 +21,7 @@ function SingleGist({obj}) {
         <div>
             {gist.owner && (
 
-                <GistCard singleGist={true} gist={gist}/>
+                <Card singleGist={true} gist={gist}/>
 
 
 

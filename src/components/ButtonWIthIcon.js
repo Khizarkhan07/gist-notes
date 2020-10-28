@@ -2,7 +2,7 @@ import React from 'react';
 
 
 
-function ButtonWIthIcon(props) {
+const ButtonWIthIcon = (props) => {
     const {icon, handleClick, text, color, background, font} = props
     const styles = {
         color: color,

@@ -57,7 +57,7 @@ const StyledCardDiv = styled.div`
 `;
 
 
-function GistCard(props) {
+const Card = (props) => {
 
     const {readGits, gistsForks} = useApi('');
 
@@ -159,4 +159,4 @@ function GistCard(props) {
     );
 }
 
-export default GistCard;
+export default Card;
