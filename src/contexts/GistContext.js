@@ -1,20 +1,16 @@
-import React, {createContext, useReducer} from 'react';
-import {gistReducer} from "../reducers/gists/GistReducer";
+import React, {createContext, useContext, useReducer} from "react";
+import { gistReducer } from "../reducers/gists/GistReducer";
 
-
-
-const initialState  = {
-    myData: []
-}
+const initialState = {
+  myData: [],
+};
 const GistsStore = createContext(initialState);
 const { Provider } = GistsStore;
 
+const GistsProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(gistReducer, initialState);
 
-const GistsProvider = ( { children } ) => {
-
-    const [state, dispatch] = useReducer( gistReducer, initialState);
-
-    return <Provider value={{ state, dispatch }}>{children}</Provider>;
+  return <Provider value={{ state, dispatch }}>{children}</Provider>;
 };
-
-export { GistsStore, GistsProvider }
+export const GistContext = () => useContext(GistsStore);
+export { GistsProvider };
