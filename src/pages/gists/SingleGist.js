@@ -3,12 +3,15 @@ import Card from "../../components/Card";
 import { Link } from "react-router-dom";
 import { getAuthenticatedUser } from "../../utils";
 import useApi from "../../hooks/useApi";
+import {useFetch} from "../../hooks/useFetch";
 
 const SingleGist = ({ obj }) => {
   const { gistsById } = useApi("");
   const gistId = obj.match.params.gistId;
   const [gist, setGist] = useState("");
   const user = getAuthenticatedUser();
+
+
   useEffect(() => {
     gistsById(gistId).then((data) => {
       if (data) {
@@ -16,6 +19,10 @@ const SingleGist = ({ obj }) => {
       }
     });
   }, []);
+
+  /*const res = useFetch(`https://api.github.com/gists/${gistId}`, {} );
+  console.log(res.response)*/
+
   return (
     <div>
       {gist.owner && <Card singleGist={true} gist={gist} />}

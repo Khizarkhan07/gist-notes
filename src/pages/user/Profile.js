@@ -45,9 +45,9 @@ const Profile = () => {
         <StyledVrDiv></StyledVrDiv>
 
         <div className={"gists mb-5"}>
-          {state.myData[0] &&
+          {state.myData.length !==0 &&
             state.myData.map((gist) => <Card singleGist={true} gist={gist} />)}
-          {!state.myData[0] && <h6>No gist found!</h6>}
+          {!state.myData.length && <h6>No gist found!</h6>}
         </div>
       </StyledProfileDiv>
     </div>
