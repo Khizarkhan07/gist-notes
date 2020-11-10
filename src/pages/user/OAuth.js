@@ -6,6 +6,8 @@ import Loader from "react-loader-spinner";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import useApi from "../../hooks/useApi";
 import { StyledLoader } from "./Profile.styles";
+import {useFetch} from "../../hooks/useFetch";
+
 const queryString = require("query-string");
 
 const OAuth = () => {
