@@ -5,7 +5,7 @@ import { Redirect } from "react-router-dom";
 import Loader from "react-loader-spinner";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import useApi from "../../hooks/useApi";
-import { StyledLoaderDiv } from "./Profile.styles";
+import { StyledLoader } from "./Profile.styles";
 const queryString = require("query-string");
 
 const OAuth = () => {
@@ -30,9 +30,9 @@ const OAuth = () => {
   return (
     <div>
       {loading ? (
-        <StyledLoaderDiv>
+        <StyledLoader>
           <Loader type="Puff" color="#00BFFF" height={100} width={100} />
-        </StyledLoaderDiv>
+        </StyledLoader>
       ) : (
         <Redirect to={"/"} />
       )}

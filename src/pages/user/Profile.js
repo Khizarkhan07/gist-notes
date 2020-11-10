@@ -7,9 +7,9 @@ import { getAuthenticatedUser } from "../../utils";
 import useApi from "../../hooks/useApi";
 import { Redirect } from "react-router-dom";
 import {
-  StyledAvatarDiv,
-  StyledProfileDiv,
-  StyledVrDiv,
+  AvatarWrapper,
+  ProfileWrapper,
+  Vr,
 } from "./Profile.styles";
 
 const Profile = () => {
@@ -29,8 +29,8 @@ const Profile = () => {
   return (
     <div className={"container mt-5"}>
       {!getAuthenticatedUser() && <Redirect to={"/"} />}
-      <StyledProfileDiv>
-        <StyledAvatarDiv>
+      <ProfileWrapper>
+        <AvatarWrapper>
           <ProfileLogo src={user.avatar_url} profile={true} />
           <h6 className={"mt-4 mb-4"}>{user.login}</h6>
           <ButtonWIthIcon
@@ -40,16 +40,16 @@ const Profile = () => {
               window.location.href = user.html_url;
             }}
           />
-        </StyledAvatarDiv>
+        </AvatarWrapper>
 
-        <StyledVrDiv></StyledVrDiv>
+        <Vr></Vr>
 
         <div className={"gists mb-5"}>
           {state.myData.length !==0 &&
             state.myData.map((gist) => <Card singleGist={true} gist={gist} />)}
           {!state.myData.length && <h6>No gist found!</h6>}
         </div>
-      </StyledProfileDiv>
+      </ProfileWrapper>
     </div>
   );
 };

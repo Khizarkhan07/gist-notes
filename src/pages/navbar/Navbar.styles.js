@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const StyledDiv = styled.div`
+export const BrandWrapper = styled.div`
     
     font-size: 25px;
     font-weight: 500;

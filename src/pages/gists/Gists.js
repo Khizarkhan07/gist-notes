@@ -11,12 +11,11 @@ import ButtonWIthIcon from "../../components/ButtonWIthIcon";
 import { getAuthenticatedUser, PageNumbers } from "../../utils";
 import { SyncLoader } from "react-spinners";
 import useApi from "../../hooks/useApi";
-import {useFetch} from "../../hooks/useFetch";
 import {
-  StyledFooterDiv,
-  StyledGistDiv,
-  StyledLayoutButton,
-  StyledLoaderDiv,
+  Footer,
+  GistWrapper,
+  LayoutButtonsWrapper,
+  StyledLoader,
 } from "./Gists.styles";
 
 const Gists = () => {
@@ -64,19 +63,19 @@ const Gists = () => {
   return (
     <div>
       {loading && (
-        <StyledLoaderDiv>
+        <StyledLoader>
           <SyncLoader
             size={15}
             //size={"150px"} this also works
             color={"#5acba1"}
             loading={true}
           />
-        </StyledLoaderDiv>
+        </StyledLoader>
       )}
 
       {!loading && (
         <div className={"container"}>
-          <StyledLayoutButton>
+          <LayoutButtonsWrapper>
             <ButtonWIthIcon
               icon={"fa fa-list"}
               handleClick={() => setLayout("list")}
@@ -86,22 +85,22 @@ const Gists = () => {
               icon={"fa fa-th"}
               handleClick={() => setLayout("grid")}
             />
-          </StyledLayoutButton>
+          </LayoutButtonsWrapper>
 
           <div className={"container"}>
             {layout === "list" && (
-              <StyledGistDiv>
+              <GistWrapper>
                 <GistsTable gists={currentGists} />
-              </StyledGistDiv>
+              </GistWrapper>
             )}
 
             {layout === "grid" && (
-              <StyledGistDiv>
+              <GistWrapper>
                 <div className={"row"}>{renderGrid}</div>
-              </StyledGistDiv>
+              </GistWrapper>
             )}
           </div>
-          <StyledFooterDiv>
+          <Footer>
             <div className={"btn-center"}>
               <ButtonWIthIcon
                 handleClick={handleNextPage}
@@ -132,7 +131,7 @@ const Gists = () => {
                 icon={"fa fa-arrow-right"}
               />
             </div>
-          </StyledFooterDiv>
+          </Footer>
         </div>
       )}
     </div>

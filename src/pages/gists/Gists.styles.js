@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const StyledLayoutButton = styled.div`
+export const LayoutButtonsWrapper = styled.div`
   margin-top: 1%;
   display: flex;
   margin-right: 3%;
@@ -15,7 +15,7 @@ export const StyledLayoutButton = styled.div`
   }
 `;
 
-export const StyledFooterDiv = styled.div`
+export const Footer = styled.div`
   display: flex;
   margin-top: 5px;
   margin-bottom: 5px;
@@ -30,7 +30,7 @@ export const StyledFooterDiv = styled.div`
   }
 `;
 
-export const StyledGistDiv = styled.div`
+export const GistWrapper = styled.div`
   margin-top: 35px;
 
   .row {
@@ -38,7 +38,7 @@ export const StyledGistDiv = styled.div`
   }
 `;
 
-export const StyledLoaderDiv = styled.div`
+export const StyledLoader = styled.div`
   margin-top: 20%;
   margin-left: 45%;
 `;

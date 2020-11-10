@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const StyledProfileDiv = styled.div`
+export const ProfileWrapper = styled.div`
   margin-top: 50px;
   height: 100%;
   width: 100%;
@@ -18,14 +18,14 @@ export const StyledProfileDiv = styled.div`
   }
 `;
 
-export const StyledAvatarDiv = styled.div`
+export const AvatarWrapper = styled.div`
   text-align: center;
 `;
 
-export const StyledVrDiv = styled.div`
+export const Vr = styled.div`
   border-left: 1px solid #e5e5e5;
 `;
-export const StyledLoaderDiv = styled.div`
+export const StyledLoader = styled.div`
   margin-top: 20%;
   margin-left: 45%;
 `;

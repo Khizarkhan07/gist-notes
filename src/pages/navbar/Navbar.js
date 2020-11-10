@@ -9,7 +9,7 @@ import ButtonWIthIcon from "../../components/ButtonWIthIcon";
 import ProfileLogo from "../../components/ProfileLogo";
 import { Link } from "react-router-dom";
 import { getAuthenticatedUser, logOut } from "../../utils";
-import { StyledDiv } from "./Navbar.styles";
+import { BrandWrapper } from "./Navbar.styles";
 
 const CLIENT_ID = '01b5f613e35062481297'
 
@@ -62,7 +62,7 @@ export const Navbar = () => {
     >
       <div className={"container"}>
         <div className="navbar-brand">
-          <StyledDiv>
+          <BrandWrapper>
             <div>
               <Link to={"/"}>
                 <img src={logo} width="30" height="30" alt="" />
@@ -73,7 +73,7 @@ export const Navbar = () => {
             <div>M</div>
             <div>B</div>
             <div>A</div>
-          </StyledDiv>
+          </BrandWrapper>
         </div>
 
         <form className="form-inline" id="navbarNav">
